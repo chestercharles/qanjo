@@ -4,8 +4,8 @@ generates:
     plugins:
       - typescript
       - typescript-resolvers
-  ../QanjoNative/app/types/index.tsx:
-    # documents: ./client/src/queries/*.tsx
+  ../QanjoNative/app/gql/index.tsx:
+    documents: ../QanjoNative/app/queries/*.tsx
     plugins:
       - typescript
       - typescript-operations

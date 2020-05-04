@@ -1,5 +1,4 @@
 import {
-  getUsers,
   createUser,
   getTokenFromCredentials,
   getUsersInBand,
@@ -24,12 +23,15 @@ import {
   updateSetlistSongSortOrder,
 } from "./setlists/setlists-service";
 import { Resolvers } from "./types";
+import { AuthenticationError } from "apollo-server-express";
 
 export const resolvers: Resolvers = {
   Query: {
-    hello: () => "howdy",
-    getUsers: (root, args, ctx, info) => {
-      return getUsers();
+    currentUser: (root, args, ctx, info) => {
+      if (!ctx.user) {
+        throw new AuthenticationError("Not logged in");
+      }
+      return ctx.user;
     },
   },
   Mutation: {
@@ -60,9 +62,8 @@ export const resolvers: Resolvers = {
     removeBandMember: (parent, args, ctx, info) => {
       return removeBandMember(args);
     },
-    login: async (parent, args, ctx, info) => {
-      const token = await getTokenFromCredentials(args.username, args.password);
-      return { token };
+    login: (parent, args, ctx, info) => {
+      return getTokenFromCredentials(args.username, args.password);
     },
   },
   User: {

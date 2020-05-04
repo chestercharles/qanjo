@@ -13,7 +13,7 @@ export type Scalars = {
 export type Query = {
    __typename?: 'Query';
   hello?: Maybe<Scalars['String']>;
-  getUsers?: Maybe<Array<Maybe<User>>>;
+  currentUser?: Maybe<User>;
 };
 
 export type Mutation = {
@@ -129,6 +129,7 @@ export type Setlist = {
 export type AuthPayload = {
    __typename?: 'AuthPayload';
   token: Scalars['String'];
+  user: User;
 };
 
 
@@ -232,7 +233,7 @@ export type ResolversParentTypes = {
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  getUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>,
+  currentUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
@@ -283,6 +284,7 @@ export type SetlistResolvers<ContextType = any, ParentType extends ResolversPare
 
 export type AuthPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthPayload'] = ResolversParentTypes['AuthPayload']> = {
   token?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 

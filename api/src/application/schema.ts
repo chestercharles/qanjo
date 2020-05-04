@@ -2,8 +2,7 @@ import { gql } from "apollo-server-express";
 
 export const schema = gql(`
   type Query {
-    hello: String
-    getUsers: [User]
+    currentUser: User
   }
 
   type Mutation {
@@ -53,5 +52,6 @@ export const schema = gql(`
 
   type AuthPayload {
     token: String!
+    user: User!
   }
 `);

@@ -3,11 +3,6 @@ import Bcrypt from "bcrypt";
 import { parseToken, createToken } from "../../lib/jwt";
 import { AuthenticationError } from "apollo-server-express";
 
-export async function getUsers() {
-  const users = await User.query().limit(5);
-  return users;
-}
-
 export async function createUser({
   email,
   username,
@@ -26,7 +21,8 @@ export async function createUser({
   return user;
 }
 
-export async function getUserFromToken(token: string) {
+export async function getUserFromBearerToken(bearerToken: string) {
+  const [bearer, token] = bearerToken.split(" ");
   const payload = await parseToken(token);
   if (payload) {
     const [user] = await User.query().where({ id: payload.id });
@@ -43,11 +39,15 @@ export async function getTokenFromCredentials(
   if (user) {
     const isValid = await Bcrypt.compare(password, user.password);
     if (isValid) {
-      return createToken({
+      const token = createToken({
         id: user.id,
         email: user.email,
         username: user.username,
       });
+      return {
+        token,
+        user,
+      };
     }
   }
   throw new AuthenticationError("Invalid Credentials");

@@ -4,7 +4,7 @@ import { schema } from "./schema";
 import { resolvers } from "./resolvers";
 import { Model } from "objection";
 import knex from "../lib/knex";
-import { getUserFromToken } from "./users/user-service";
+import { getUserFromBearerToken } from "./users/user-service";
 
 Model.knex(knex);
 
@@ -13,7 +13,7 @@ const server = new ApolloServer({
   resolvers: resolvers,
   context: async ({ req }) => {
     const token = req.headers.authorization || "";
-    const user = await getUserFromToken(token);
+    const user = await getUserFromBearerToken(token);
     return { user };
   },
 });
