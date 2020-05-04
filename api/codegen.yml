@@ -1,0 +1,12 @@
+schema: ./src/application/schema.ts
+generates:
+  src/application/types.ts:
+    plugins:
+      - typescript
+      - typescript-resolvers
+  ../QanjoNative/app/types/index.tsx:
+    # documents: ./client/src/queries/*.tsx
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
