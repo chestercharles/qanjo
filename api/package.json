@@ -2,7 +2,7 @@
   "name": "qanjo-api",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/application/index.js",
+  "main": "dist/app/index.js",
   "dependencies": {
     "apollo-server-express": "^2.12.0",
     "bcrypt": "^4.0.1",

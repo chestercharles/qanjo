@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
-import Root from './src';
+import Qanjo from './src';
 
-AppRegistry.registerComponent('QanjoNative', () => Root);
+AppRegistry.registerComponent('QanjoNative', () => Qanjo);

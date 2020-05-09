@@ -1,34 +1,35 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Features from './Features';
+import OnBoarding from './OnBoarding';
+import Main from './Main';
 import Settings from './Settings';
-import { Text, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
 const Stack = createStackNavigator();
 
-const SettingsButton: React.FC = () => {
-  const navigation = useNavigation();
-  return (
-    <Button
-      title={'Settings'}
-      onPress={() => navigation.navigate('Settings')}
-    />
-  );
-};
-
 const AuthenticatedApp: React.FC = () => {
   return (
-    <Stack.Navigator initialRouteName="Features">
+    <Stack.Navigator initialRouteName="Main">
       <Stack.Screen
-        name="Features"
-        component={Features}
+        name="Main"
+        component={Main}
         options={{
-          headerTitle: 'Qanjo',
-          headerRight: () => <SettingsButton />,
+          headerShown: false,
         }}
-      ></Stack.Screen>
-      <Stack.Screen name="Settings" component={Settings}></Stack.Screen>
+      />
+      <Stack.Screen
+        name="OnBoarding"
+        component={OnBoarding}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          headerBackTitle: 'Back',
+        }}
+      />
     </Stack.Navigator>
   );
 };

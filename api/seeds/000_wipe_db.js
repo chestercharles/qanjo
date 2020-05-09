@@ -6,6 +6,7 @@ exports.seed = async function (knex) {
   await knex("gig_sets").del();
   await knex("gigs").del();
   await knex("band_members").del();
+  await knex("users").update({ default_band_id: null });
   await knex("bands").del();
   await knex("users").del();
 };

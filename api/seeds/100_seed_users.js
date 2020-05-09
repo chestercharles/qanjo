@@ -1,5 +1,4 @@
 exports.seed = function (knex) {
-  // Deletes ALL existing entries
   return knex("users").insert({
     email: "chestercarmer@icloud.com",
     username: "demo_user",

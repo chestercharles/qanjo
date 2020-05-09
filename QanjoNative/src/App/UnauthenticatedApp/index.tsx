@@ -9,7 +9,14 @@ const UnauthenticatedApp: React.FC = () => {
   return (
     <Stack.Navigator
       initialRouteName="Login"
-      screenOptions={{ header: () => null }}
+      screenOptions={{
+        header: () => null,
+        cardStyle: {
+          opacity: 1,
+          shadowOpacity: 1,
+          backgroundColor: 'transparent',
+        },
+      }}
     >
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />

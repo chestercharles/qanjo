@@ -1,5 +1,4 @@
 exports.seed = async function (knex) {
-  // Deletes ALL existing entries
   const seedUser = await knex("users")
     .where({ username: "demo_user" })
     .first()
