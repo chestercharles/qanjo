@@ -46,6 +46,7 @@ export default Button;
 
 const styles = StyleSheet.create({
   btn: {
+    width: 150,
     flexDirection: 'row',
     alignItems: 'center',
     position: 'relative',

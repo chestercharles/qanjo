@@ -23,7 +23,6 @@ type AddSong = {
 };
 
 const AddSong: React.FC<AddSong> = ({ onCompleted, onRequestClose, song }) => {
-  console.log(song);
   const [title, setTitle] = useState(song.title);
   const [key, setKey] = useState(song.key);
   const [dirty, setDirty] = useState(false);
