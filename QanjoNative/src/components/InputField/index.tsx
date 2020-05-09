@@ -7,17 +7,20 @@ type InputFieldProps = {
   placeholder?: string;
   hasError?: boolean;
   errorMessage?: string;
+  value?: string;
 };
 
 const InputField: React.FC<InputFieldProps> = ({
   onChangeText,
   placeholder,
   hasError,
+  value,
 }) => {
   return (
     <>
       <View style={[styles.inputView, hasError && styles.hasError]}>
         <TextInput
+          value={value}
           style={styles.inputText}
           placeholder={placeholder}
           placeholderTextColor={colors.paragraph}

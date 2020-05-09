@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { colors } from '../../../../theme';
-import Headline from '../../../../components/Headline';
 import SongList from './SongList';
 import Plus from '../../../../icons/Plus';
 import AddSongModal from './AddSongModal';
+import EditSongModal from './EditSongModal';
 import Header from '../../../../components/Header';
+import { Song } from '../../../../gql';
 
 const Songs: React.FC = () => {
   const [addSongModalVisible, setAddSongModalVisible] = useState(false);
+  const [songToEdit, setSongToEdit] = useState<Song | null>(null);
   return (
     <View style={styles.container}>
       <Header
@@ -19,11 +21,16 @@ const Songs: React.FC = () => {
           </TouchableOpacity>
         }
       />
-      <SongList />
+      <SongList onSongPress={(song) => setSongToEdit(song)} />
       <AddSongModal
         visible={addSongModalVisible}
         onCompleted={() => setAddSongModalVisible(false)}
         onRequestClose={() => setAddSongModalVisible(false)}
+      />
+      <EditSongModal
+        song={songToEdit}
+        onCompleted={() => setSongToEdit(null)}
+        onRequestClose={() => setSongToEdit(null)}
       />
     </View>
   );

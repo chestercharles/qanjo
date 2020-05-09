@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
-import { SectionList, SectionListData } from 'react-native';
+import { SectionList } from 'react-native';
 import {
   Song,
   CurrentSongsDocument,
   CurrentSongsQuery,
 } from '../../../../../gql';
-import ListEntry from './ListEntry';
-import ListHeader from './ListHeader';
+import SongEntry from './SongEntry';
+import SongSectionHeader from './SongSectionHeader';
 import { useQuery } from '@apollo/react-hooks';
 
 const makeAlphaSet = () =>
@@ -17,7 +17,11 @@ const makeAlphaSet = () =>
     };
   });
 
-const SongList = () => {
+type SongListProps = {
+  onSongPress: (song: Song) => void;
+};
+
+const SongList: React.FC<SongListProps> = ({ onSongPress }) => {
   const { data, loading } = useQuery<CurrentSongsQuery>(CurrentSongsDocument);
   const sections = useMemo(() => {
     const alphaSet = makeAlphaSet();
@@ -40,10 +44,12 @@ const SongList = () => {
   return (
     <SectionList
       sections={sections}
-      renderItem={({ item }) => <ListEntry key={item.id} song={item} />}
+      renderItem={({ item }) => (
+        <SongEntry key={item.id} song={item} onSongPress={onSongPress} />
+      )}
       renderSectionHeader={(payload) => {
         if (payload.section.data.length > 0) {
-          return <ListHeader title={payload.section.title} />;
+          return <SongSectionHeader title={payload.section.title} />;
         } else {
           return null;
         }

@@ -1,22 +1,27 @@
 import React from 'react';
 import { Modal } from 'react-native';
-import AddSong from './AddSong';
+import EditSong from './EditSong';
+import { Song } from '../../../../../gql';
 
 type AddSongModalProps = {
-  visible: boolean;
+  song: Song | null;
   onCompleted: () => void;
   onRequestClose: () => void;
 };
 
 const AddSongModal: React.FC<AddSongModalProps> = ({
-  visible,
+  song,
   onCompleted,
   onRequestClose,
 }) => {
-  if (visible) {
+  if (song) {
     return (
       <Modal animationType={'slide'}>
-        <AddSong onCompleted={onCompleted} onRequestClose={onRequestClose} />
+        <EditSong
+          onCompleted={onCompleted}
+          onRequestClose={onRequestClose}
+          song={song}
+        />
       </Modal>
     );
   } else {
