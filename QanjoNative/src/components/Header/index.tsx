@@ -15,10 +15,6 @@ type HeaderProps = {
   onTitlePress?: () => void;
 };
 
-const Placeholder: React.FC = () => (
-  <Text style={{ opacity: 0 }}>Placeholder</Text>
-);
-
 const Header: React.FC<HeaderProps> = ({
   title,
   contentRight,
@@ -73,12 +69,12 @@ const styles = StyleSheet.create({
     width: '33.3%',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    paddingRight: 10
+    paddingRight: 10,
   },
   left: {
     width: '33.3%',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    paddingLeft: 10
+    paddingLeft: 10,
   },
 });
