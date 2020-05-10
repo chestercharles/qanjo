@@ -7,6 +7,7 @@ export const schema = gql(`
     currentSetlists: [Setlist!]!
     currentSongs: [Song!]!
     currentGigs: [Gig!]!
+    setlistSongs(setlist_id: String!): [Song!]!
   }
 
   type Mutation {
@@ -55,7 +56,7 @@ export const schema = gql(`
   type Setlist {
     id: String!
     setlist_name: String!
-    songs: [Song]!
+    songs: [Song!]
   }
 
   type AuthPayload {

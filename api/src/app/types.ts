@@ -17,6 +17,12 @@ export type Query = {
   currentSetlists: Array<Setlist>;
   currentSongs: Array<Song>;
   currentGigs: Array<Gig>;
+  setlistSongs: Array<Song>;
+};
+
+
+export type QuerySetlistSongsArgs = {
+  setlist_id: Scalars['String'];
 };
 
 export type Mutation = {
@@ -134,7 +140,7 @@ export type Setlist = {
    __typename?: 'Setlist';
   id: Scalars['String'];
   setlist_name: Scalars['String'];
-  songs: Array<Maybe<Song>>;
+  songs?: Maybe<Array<Song>>;
 };
 
 export type AuthPayload = {
@@ -270,6 +276,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   currentSetlists?: Resolver<Array<ResolversTypes['Setlist']>, ParentType, ContextType>,
   currentSongs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>,
   currentGigs?: Resolver<Array<ResolversTypes['Gig']>, ParentType, ContextType>,
+  setlistSongs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType, RequireFields<QuerySetlistSongsArgs, 'setlist_id'>>,
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
@@ -317,7 +324,7 @@ export type SongResolvers<ContextType = any, ParentType extends ResolversParentT
 export type SetlistResolvers<ContextType = any, ParentType extends ResolversParentTypes['Setlist'] = ResolversParentTypes['Setlist']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   setlist_name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  songs?: Resolver<Array<Maybe<ResolversTypes['Song']>>, ParentType, ContextType>,
+  songs?: Resolver<Maybe<Array<ResolversTypes['Song']>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 

@@ -47,10 +47,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   search: {
     marginHorizontal: space.gutter,
   },

@@ -11,13 +11,10 @@ import { colors } from '../../../theme';
 import Notes from '../../../icons/Notes';
 import Calendar from '../../../icons/Calendar';
 import List from '../../../icons/List';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import Gear from '../../../icons/Gear';
 import Home from './Home';
 import Setlists from './Setlists';
 
-const Stack = createStackNavigator();
-
+const Tab = createBottomTabNavigator();
 const Main: React.FC = () => {
   const navigation = useNavigation();
   const { data, loading } = useQuery<CurrentBandQuery>(CurrentBandDocument);
@@ -30,33 +27,34 @@ const Main: React.FC = () => {
 
   if (data?.currentBand) {
     return (
-      <Stack.Navigator
-        initialRouteName="Features"
-        screenOptions={{
-          cardStyle: {
-            opacity: 1,
-            shadowOpacity: 1,
-            backgroundColor: 'transparent',
-          },
+      <Tab.Navigator
+        initialRouteName="Home"
+        tabBarOptions={{
+          activeTintColor: colors.highlight,
         }}
       >
-        <Stack.Screen
-          name="Features"
-          component={FeatureTabs}
+        <Tab.Screen
+          name="Home"
+          component={Home}
           options={{
-            headerShown: false,
-            headerTitle: data?.currentBand.band_name,
-            headerRight: () => (
-              <TouchableOpacity
-                style={{ padding: 15 }}
-                onPress={() => navigation.navigate('Settings')}
-              >
-                <Gear />
-              </TouchableOpacity>
-            ),
+            tabBarIcon: ({ focused, color }) => <Calendar color={color} />,
           }}
-        ></Stack.Screen>
-      </Stack.Navigator>
+        />
+        <Tab.Screen
+          name="Setlists"
+          component={Setlists}
+          options={{
+            tabBarIcon: ({ focused, color }) => <List color={color} />,
+          }}
+        />
+        <Tab.Screen
+          name="Songs"
+          component={Songs}
+          options={{
+            tabBarIcon: ({ focused, color }) => <Notes color={color} />,
+          }}
+        />
+      </Tab.Navigator>
     );
   } else {
     return <FullScreenLoader />;
@@ -64,37 +62,3 @@ const Main: React.FC = () => {
 };
 
 export default Main;
-
-const Tab = createBottomTabNavigator();
-const FeatureTabs: React.FC = () => {
-  return (
-    <Tab.Navigator
-      initialRouteName="Home"
-      tabBarOptions={{
-        activeTintColor: colors.highlight,
-      }}
-    >
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          tabBarIcon: ({ focused, color }) => <Calendar color={color} />,
-        }}
-      />
-      <Tab.Screen
-        name="Setlists"
-        component={Setlists}
-        options={{
-          tabBarIcon: ({ focused, color }) => <List color={color} />,
-        }}
-      />
-      <Tab.Screen
-        name="Songs"
-        component={Songs}
-        options={{
-          tabBarIcon: ({ focused, color }) => <Notes color={color} />,
-        }}
-      />
-    </Tab.Navigator>
-  );
-};

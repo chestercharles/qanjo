@@ -21,6 +21,12 @@ export type Query = {
   currentSetlists: Array<Setlist>;
   currentSongs: Array<Song>;
   currentGigs: Array<Gig>;
+  setlistSongs: Array<Song>;
+};
+
+
+export type QuerySetlistSongsArgs = {
+  setlist_id: Scalars['String'];
 };
 
 export type Mutation = {
@@ -138,7 +144,7 @@ export type Setlist = {
    __typename?: 'Setlist';
   id: Scalars['String'];
   setlist_name: Scalars['String'];
-  songs: Array<Maybe<Song>>;
+  songs?: Maybe<Array<Song>>;
 };
 
 export type AuthPayload = {
@@ -165,6 +171,21 @@ export type GigSet = {
   setlist?: Maybe<Setlist>;
 };
 
+export type AddSongToSetlistMutationVariables = {
+  song_id: Scalars['String'];
+  setlist_id: Scalars['String'];
+  sort_order: Scalars['Int'];
+};
+
+
+export type AddSongToSetlistMutation = (
+  { __typename?: 'Mutation' }
+  & { addSongToSetlist: (
+    { __typename?: 'Setlist' }
+    & Pick<Setlist, 'id' | 'setlist_name'>
+  ) }
+);
+
 export type CreateBandMutationVariables = {
   band_name: Scalars['String'];
   owner_id: Scalars['String'];
@@ -176,6 +197,20 @@ export type CreateBandMutation = (
   & { createBand: (
     { __typename?: 'Band' }
     & Pick<Band, 'id' | 'band_name'>
+  ) }
+);
+
+export type CreateSetlistMutationVariables = {
+  setlist_name: Scalars['String'];
+  band_id: Scalars['String'];
+};
+
+
+export type CreateSetlistMutation = (
+  { __typename?: 'Mutation' }
+  & { createSetlist: (
+    { __typename?: 'Setlist' }
+    & Pick<Setlist, 'id' | 'setlist_name'>
   ) }
 );
 
@@ -289,7 +324,64 @@ export type LoginMutation = (
   ) }
 );
 
+export type RemoveSongFromSetlistMutationVariables = {
+  song_id: Scalars['String'];
+  setlist_id: Scalars['String'];
+};
 
+
+export type RemoveSongFromSetlistMutation = (
+  { __typename?: 'Mutation' }
+  & { removeSongFromSetlist: (
+    { __typename?: 'Setlist' }
+    & Pick<Setlist, 'id' | 'setlist_name'>
+  ) }
+);
+
+export type SetlistSongsQueryVariables = {
+  setlist_id: Scalars['String'];
+};
+
+
+export type SetlistSongsQuery = (
+  { __typename?: 'Query' }
+  & { setlistSongs: Array<(
+    { __typename?: 'Song' }
+    & Pick<Song, 'id' | 'title' | 'key' | 'setlist_song_id' | 'sort_order'>
+  )> }
+);
+
+
+export const AddSongToSetlistDocument = gql`
+    mutation AddSongToSetlist($song_id: String!, $setlist_id: String!, $sort_order: Int!) {
+  addSongToSetlist(song_id: $song_id, setlist_id: $setlist_id, sort_order: $sort_order) {
+    id
+    setlist_name
+  }
+}
+    `;
+export type AddSongToSetlistMutationFn = ApolloReactCommon.MutationFunction<AddSongToSetlistMutation, AddSongToSetlistMutationVariables>;
+export type AddSongToSetlistComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<AddSongToSetlistMutation, AddSongToSetlistMutationVariables>, 'mutation'>;
+
+    export const AddSongToSetlistComponent = (props: AddSongToSetlistComponentProps) => (
+      <ApolloReactComponents.Mutation<AddSongToSetlistMutation, AddSongToSetlistMutationVariables> mutation={AddSongToSetlistDocument} {...props} />
+    );
+    
+export type AddSongToSetlistProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
+      [key in TDataName]: ApolloReactCommon.MutationFunction<AddSongToSetlistMutation, AddSongToSetlistMutationVariables>
+    } & TChildProps;
+export function withAddSongToSetlist<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  AddSongToSetlistMutation,
+  AddSongToSetlistMutationVariables,
+  AddSongToSetlistProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withMutation<TProps, AddSongToSetlistMutation, AddSongToSetlistMutationVariables, AddSongToSetlistProps<TChildProps, TDataName>>(AddSongToSetlistDocument, {
+      alias: 'addSongToSetlist',
+      ...operationOptions
+    });
+};
+export type AddSongToSetlistMutationResult = ApolloReactCommon.MutationResult<AddSongToSetlistMutation>;
+export type AddSongToSetlistMutationOptions = ApolloReactCommon.BaseMutationOptions<AddSongToSetlistMutation, AddSongToSetlistMutationVariables>;
 export const CreateBandDocument = gql`
     mutation CreateBand($band_name: String!, $owner_id: String!) {
   createBand(band_name: $band_name, owner_id: $owner_id) {
@@ -320,6 +412,36 @@ export function withCreateBand<TProps, TChildProps = {}, TDataName extends strin
 };
 export type CreateBandMutationResult = ApolloReactCommon.MutationResult<CreateBandMutation>;
 export type CreateBandMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateBandMutation, CreateBandMutationVariables>;
+export const CreateSetlistDocument = gql`
+    mutation CreateSetlist($setlist_name: String!, $band_id: String!) {
+  createSetlist(band_id: $band_id, setlist_name: $setlist_name) {
+    id
+    setlist_name
+  }
+}
+    `;
+export type CreateSetlistMutationFn = ApolloReactCommon.MutationFunction<CreateSetlistMutation, CreateSetlistMutationVariables>;
+export type CreateSetlistComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<CreateSetlistMutation, CreateSetlistMutationVariables>, 'mutation'>;
+
+    export const CreateSetlistComponent = (props: CreateSetlistComponentProps) => (
+      <ApolloReactComponents.Mutation<CreateSetlistMutation, CreateSetlistMutationVariables> mutation={CreateSetlistDocument} {...props} />
+    );
+    
+export type CreateSetlistProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
+      [key in TDataName]: ApolloReactCommon.MutationFunction<CreateSetlistMutation, CreateSetlistMutationVariables>
+    } & TChildProps;
+export function withCreateSetlist<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  CreateSetlistMutation,
+  CreateSetlistMutationVariables,
+  CreateSetlistProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withMutation<TProps, CreateSetlistMutation, CreateSetlistMutationVariables, CreateSetlistProps<TChildProps, TDataName>>(CreateSetlistDocument, {
+      alias: 'createSetlist',
+      ...operationOptions
+    });
+};
+export type CreateSetlistMutationResult = ApolloReactCommon.MutationResult<CreateSetlistMutation>;
+export type CreateSetlistMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateSetlistMutation, CreateSetlistMutationVariables>;
 export const CreateSongDocument = gql`
     mutation CreateSong($title: String!, $key: String!, $band_id: String!) {
   createSong(title: $title, key: $key, band_id: $band_id) {
@@ -565,3 +687,64 @@ export function withLogin<TProps, TChildProps = {}, TDataName extends string = '
 };
 export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation>;
 export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const RemoveSongFromSetlistDocument = gql`
+    mutation RemoveSongFromSetlist($song_id: String!, $setlist_id: String!) {
+  removeSongFromSetlist(song_id: $song_id, setlist_id: $setlist_id) {
+    id
+    setlist_name
+  }
+}
+    `;
+export type RemoveSongFromSetlistMutationFn = ApolloReactCommon.MutationFunction<RemoveSongFromSetlistMutation, RemoveSongFromSetlistMutationVariables>;
+export type RemoveSongFromSetlistComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<RemoveSongFromSetlistMutation, RemoveSongFromSetlistMutationVariables>, 'mutation'>;
+
+    export const RemoveSongFromSetlistComponent = (props: RemoveSongFromSetlistComponentProps) => (
+      <ApolloReactComponents.Mutation<RemoveSongFromSetlistMutation, RemoveSongFromSetlistMutationVariables> mutation={RemoveSongFromSetlistDocument} {...props} />
+    );
+    
+export type RemoveSongFromSetlistProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
+      [key in TDataName]: ApolloReactCommon.MutationFunction<RemoveSongFromSetlistMutation, RemoveSongFromSetlistMutationVariables>
+    } & TChildProps;
+export function withRemoveSongFromSetlist<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  RemoveSongFromSetlistMutation,
+  RemoveSongFromSetlistMutationVariables,
+  RemoveSongFromSetlistProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withMutation<TProps, RemoveSongFromSetlistMutation, RemoveSongFromSetlistMutationVariables, RemoveSongFromSetlistProps<TChildProps, TDataName>>(RemoveSongFromSetlistDocument, {
+      alias: 'removeSongFromSetlist',
+      ...operationOptions
+    });
+};
+export type RemoveSongFromSetlistMutationResult = ApolloReactCommon.MutationResult<RemoveSongFromSetlistMutation>;
+export type RemoveSongFromSetlistMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveSongFromSetlistMutation, RemoveSongFromSetlistMutationVariables>;
+export const SetlistSongsDocument = gql`
+    query SetlistSongs($setlist_id: String!) {
+  setlistSongs(setlist_id: $setlist_id) {
+    id
+    title
+    key
+    setlist_song_id
+    sort_order
+  }
+}
+    `;
+export type SetlistSongsComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<SetlistSongsQuery, SetlistSongsQueryVariables>, 'query'> & ({ variables: SetlistSongsQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const SetlistSongsComponent = (props: SetlistSongsComponentProps) => (
+      <ApolloReactComponents.Query<SetlistSongsQuery, SetlistSongsQueryVariables> query={SetlistSongsDocument} {...props} />
+    );
+    
+export type SetlistSongsProps<TChildProps = {}, TDataName extends string = 'data'> = {
+      [key in TDataName]: ApolloReactHoc.DataValue<SetlistSongsQuery, SetlistSongsQueryVariables>
+    } & TChildProps;
+export function withSetlistSongs<TProps, TChildProps = {}, TDataName extends string = 'data'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  SetlistSongsQuery,
+  SetlistSongsQueryVariables,
+  SetlistSongsProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withQuery<TProps, SetlistSongsQuery, SetlistSongsQueryVariables, SetlistSongsProps<TChildProps, TDataName>>(SetlistSongsDocument, {
+      alias: 'setlistSongs',
+      ...operationOptions
+    });
+};
+export type SetlistSongsQueryResult = ApolloReactCommon.QueryResult<SetlistSongsQuery, SetlistSongsQueryVariables>;

@@ -1,6 +1,12 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { StyleSheet, Text, ActivityIndicator, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  ActivityIndicator,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { colors } from '../../theme';
 
 type ButtonProps = {
@@ -9,6 +15,7 @@ type ButtonProps = {
   disabled?: boolean;
   loading?: boolean;
   title: string;
+  style?: ViewStyle;
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,6 +24,7 @@ const Button: React.FC<ButtonProps> = ({
   title,
   disabled = false,
   loading = false,
+  style,
 }) => {
   const primary = buttonType === 'Primary';
   return (
@@ -26,6 +34,7 @@ const Button: React.FC<ButtonProps> = ({
           styles.btn,
           primary ? styles.primaryBtn : styles.secondaryBtn,
           disabled && styles.disabled,
+          style,
         ]}
       >
         <Text

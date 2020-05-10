@@ -58,6 +58,9 @@ export const resolvers: Resolvers = {
       }
       return [];
     },
+    setlistSongs(root, args, ctx, info) {
+      return getSetlistSongs(args.setlist_id);
+    },
   },
   Mutation: {
     setUserDefaultBand(parent, args, ctx, info) {

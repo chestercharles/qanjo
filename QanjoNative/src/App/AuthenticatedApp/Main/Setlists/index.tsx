@@ -1,31 +1,25 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import Header from '../../../../components/Header';
-import Plus from '../../../../icons/Plus';
-import { colors } from '../../../../theme';
-import { useQuery } from '@apollo/react-hooks';
-import { CurrentSetlistsDocument, CurrentSetlistsQuery } from '../../../../gql';
+import { createStackNavigator } from '@react-navigation/stack';
+import SetlistsMain from './SetlistsMain';
+import CreateSetlist from './CreateSetlist';
+
+const Stack = createStackNavigator();
 
 const Setlists: React.FC = () => {
-  const { data } = useQuery<CurrentSetlistsQuery>(CurrentSetlistsDocument);
   return (
-    <View style={styles.container}>
-      <Header
-        title="Setlists"
-        contentRight={
-          <TouchableOpacity onPress={() => {}}>
-            <Plus color={colors.button} />
-          </TouchableOpacity>
-        }
-      />
-    </View>
+    <Stack.Navigator initialRouteName="SetlistsHome">
+      <Stack.Screen
+        name="SetlistsMain"
+        component={SetlistsMain}
+        options={{ headerShown: false }}
+      ></Stack.Screen>
+      <Stack.Screen
+        name="CreateSetlist"
+        component={CreateSetlist}
+        options={{ headerShown: false }}
+      ></Stack.Screen>
+    </Stack.Navigator>
   );
 };
 
 export default Setlists;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
