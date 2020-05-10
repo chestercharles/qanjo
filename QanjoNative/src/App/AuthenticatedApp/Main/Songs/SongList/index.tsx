@@ -16,7 +16,7 @@ function sortIntoAlphabetizedSections(songs: Song[] = []) {
       data: [] as Song[],
     };
   });
-  const mappedSongs = songs
+  const songWithFirstLetter = songs
     .map((song) => {
       const title = song.title.toUpperCase();
       let firstLetter: string;
@@ -42,8 +42,8 @@ function sortIntoAlphabetizedSections(songs: Song[] = []) {
 
   let i = 0;
   let j = 0;
-  while (i < mappedSongs.length) {
-    const { song, firstLetter } = mappedSongs[i];
+  while (i < songWithFirstLetter.length) {
+    const { song, firstLetter } = songWithFirstLetter[i];
     if (firstLetter === alphaSet[j].title) {
       alphaSet[j].data.push(song);
       i++;
