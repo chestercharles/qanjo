@@ -2,7 +2,6 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import CreateSetlist from './CreateSetlist';
 import ViewSetlist from './ViewSetlist';
-import BulkEditSetlist from './ViewSetlist/BulkEditSetlist';
 import CurrentSetlists from './CurrentSetlists';
 
 const Stack = createStackNavigator();
@@ -23,11 +22,6 @@ const SetlistS: React.FC = () => {
       <Stack.Screen
         name="CreateSetlist"
         component={CreateSetlist}
-        options={{ headerShown: false }}
-      ></Stack.Screen>
-      <Stack.Screen
-        name="EditSetlist"
-        component={BulkEditSetlist}
         options={{ headerShown: false }}
       ></Stack.Screen>
     </Stack.Navigator>
