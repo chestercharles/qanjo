@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import OnBoarding from './OnBoarding';
 import Main from './Main';
 import Settings from './Settings';
+import SetlistS from './Main/Setlists';
 
 const Stack = createStackNavigator();
 

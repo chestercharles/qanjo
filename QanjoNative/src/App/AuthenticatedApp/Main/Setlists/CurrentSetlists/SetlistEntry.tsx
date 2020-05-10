@@ -1,7 +1,7 @@
 import React from 'react';
-import { Setlist } from '../../../../../../gql';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { space } from '../../../../../../theme';
+import { Setlist } from '../../../../../gql';
+import { space } from '../../../../../theme';
 
 type SetlistEntryProps = {
   setlist: Setlist;

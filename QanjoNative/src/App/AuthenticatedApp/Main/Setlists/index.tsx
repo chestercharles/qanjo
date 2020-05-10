@@ -1,16 +1,23 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import SetlistsMain from './SetlistsMain';
 import CreateSetlist from './CreateSetlist';
+import ViewSetlist from './ViewSetlist';
+import BulkEditSetlist from './ViewSetlist/BulkEditSetlist';
+import CurrentSetlists from './CurrentSetlists';
 
 const Stack = createStackNavigator();
 
-const Setlists: React.FC = () => {
+const SetlistS: React.FC = () => {
   return (
-    <Stack.Navigator initialRouteName="SetlistsHome">
+    <Stack.Navigator initialRouteName="CurrentSetlists">
       <Stack.Screen
-        name="SetlistsMain"
-        component={SetlistsMain}
+        name="CurrentSetlists"
+        component={CurrentSetlists}
+        options={{ headerShown: false }}
+      ></Stack.Screen>
+      <Stack.Screen
+        name="ViewSetlist"
+        component={ViewSetlist}
         options={{ headerShown: false }}
       ></Stack.Screen>
       <Stack.Screen
@@ -18,8 +25,13 @@ const Setlists: React.FC = () => {
         component={CreateSetlist}
         options={{ headerShown: false }}
       ></Stack.Screen>
+      <Stack.Screen
+        name="EditSetlist"
+        component={BulkEditSetlist}
+        options={{ headerShown: false }}
+      ></Stack.Screen>
     </Stack.Navigator>
   );
 };
 
-export default Setlists;
+export default SetlistS;

@@ -1,44 +1,35 @@
 import React, { useMemo } from 'react';
-import {
-  Setlist,
-  SetlistSongsDocument,
-  SetlistSongsQuery,
-  CurrentSongsDocument,
-  CurrentSongsQuery,
-  AddSongToSetlistDocument,
-  AddSongToSetlistMutation,
-  RemoveSongFromSetlistDocument,
-  RemoveSongFromSetlistMutation,
-} from '../../../../../gql';
 import { StyleSheet, View, SectionList, SafeAreaView } from 'react-native';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import FullScreenLoader from '../../../../../components/FullScreenLoader';
-import sortSongsIntoAlphabetizedSections from '../../../../../helpers/sortSongsIntoAlphabetizedSections';
 import SetlistSongEntry from './SetlistSongEntry';
-import { colors, space, borders } from '../../../../../theme';
-import Button from '../../../../../components/Button';
-import Headline from '../../../../../components/Headline';
+import {
+  CurrentSongsQuery,
+  CurrentSongsDocument,
+  Setlist,
+  SetlistSongsQuery,
+  SetlistSongsDocument,
+  AddSongToSetlistMutation,
+  AddSongToSetlistDocument,
+  RemoveSongFromSetlistMutation,
+  RemoveSongFromSetlistDocument,
+} from '../../../../../../gql';
+import sortSongsIntoAlphabetizedSections from '../../../../../../helpers/sortSongsIntoAlphabetizedSections';
+import Headline from '../../../../../../components/Headline';
+import { colors, borders } from '../../../../../../theme';
+import Button from '../../../../../../components/Button';
 
-type EditSetlistProps = {
-  setlist: Setlist | null;
-  onCompleted: () => void;
-  onRequestClose: () => void;
-};
-
-const EditSetlist: React.FC<EditSetlistProps> = ({
-  setlist,
-  onCompleted,
-  onRequestClose,
-}) => {
+function useSongSections() {
   const songsQuery = useQuery<CurrentSongsQuery>(CurrentSongsDocument);
-  const sections = sortSongsIntoAlphabetizedSections(
-    songsQuery.data?.currentSongs,
-  );
+  return sortSongsIntoAlphabetizedSections(songsQuery.data?.currentSongs);
+}
 
+function useSetlistSongsMap(
+  setlist: Setlist | null | undefined,
+): { [key: string]: boolean } {
   const setlistQuery = useQuery<SetlistSongsQuery>(SetlistSongsDocument, {
     variables: { setlist_id: setlist?.id },
   });
-  const setlistSongsMap: { [key: string]: boolean } = useMemo(() => {
+  return useMemo(() => {
     const setlistSongs = setlistQuery.data?.setlistSongs || [];
     return setlistSongs.reduce((map, setlistSong) => {
       return {
@@ -47,6 +38,19 @@ const EditSetlist: React.FC<EditSetlistProps> = ({
       };
     }, {});
   }, [setlistQuery.data?.setlistSongs]);
+}
+
+type BulkEditSetlistProps = {
+  setlist: Setlist;
+  onRequestClose: () => void;
+};
+
+const BulkEditSetlist: React.FC<BulkEditSetlistProps> = ({
+  setlist,
+  onRequestClose,
+}) => {
+  const sections = useSongSections();
+  const setlistSongsMap = useSetlistSongsMap(setlist);
 
   const [addSongToSetlist] = useMutation<AddSongToSetlistMutation>(
     AddSongToSetlistDocument,
@@ -96,13 +100,17 @@ const EditSetlist: React.FC<EditSetlistProps> = ({
         }}
       />
       <SafeAreaView>
-        <Button title="Done" onPress={onCompleted} style={styles.button} />
+        <Button
+          title="Done"
+          onPress={() => onRequestClose()}
+          style={styles.button}
+        />
       </SafeAreaView>
     </View>
   );
 };
 
-export default EditSetlist;
+export default BulkEditSetlist;
 
 const styles = StyleSheet.create({
   container: {

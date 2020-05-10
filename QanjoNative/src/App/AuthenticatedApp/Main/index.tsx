@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useQuery } from '@apollo/react-hooks';
 
 import { CurrentBandDocument, CurrentBandQuery } from '../../../gql';
@@ -12,7 +11,7 @@ import Notes from '../../../icons/Notes';
 import Calendar from '../../../icons/Calendar';
 import List from '../../../icons/List';
 import Home from './Home';
-import Setlists from './Setlists';
+import SetlistS from './Setlists';
 
 const Tab = createBottomTabNavigator();
 const Main: React.FC = () => {
@@ -42,7 +41,7 @@ const Main: React.FC = () => {
         />
         <Tab.Screen
           name="Setlists"
-          component={Setlists}
+          component={SetlistS}
           options={{
             tabBarIcon: ({ focused, color }) => <List color={color} />,
           }}

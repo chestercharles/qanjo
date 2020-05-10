@@ -1,9 +1,9 @@
 import React from 'react';
-import { Song } from '../../../../../gql';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { space, colors } from '../../../../../theme';
-import Checked from '../../../../../icons/Checked';
-import Unchecked from '../../../../../icons/Unchecked';
+import { Song } from '../../../../../../gql';
+import { colors, space } from '../../../../../../theme';
+import Checked from '../../../../../../icons/Checked';
+import Unchecked from '../../../../../../icons/Unchecked';
 
 type SetlistSongEntry = {
   song: Song;

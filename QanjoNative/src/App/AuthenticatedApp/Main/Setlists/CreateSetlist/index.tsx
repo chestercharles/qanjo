@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useNavigation } from '@react-navigation/native';
 import {
-  Setlist,
   CurrentBandQuery,
   CurrentBandDocument,
   CreateSetlistMutation,
   CreateSetlistDocument,
 } from '../../../../../gql';
-import Close from '../../../../../icons/Close';
-import { colors, space } from '../../../../../theme';
 import Headline from '../../../../../components/Headline';
 import InputField from '../../../../../components/InputField';
 import ButtonBar from '../../../../../components/ButtonBar';
-import { useNavigation } from '@react-navigation/native';
+import { colors, space } from '../../../../../theme';
 
 const CreateSetlist: React.FC = () => {
   const navigation = useNavigation();
@@ -32,8 +30,6 @@ const CreateSetlist: React.FC = () => {
         navigation.navigate('EditSetlist', { id: data.createSetlist.id }),
     },
   );
-
-  const goBack = () => navigation.goBack();
 
   return (
     <View style={styles.container}>
@@ -54,7 +50,7 @@ const CreateSetlist: React.FC = () => {
         }}
         primaryTitle="Next"
         primaryLoading={loading}
-        onSecondaryPress={() => goBack()}
+        onSecondaryPress={() => navigation.goBack()}
         secondaryTitle="Cancel"
         style={styles.buttonBar}
       />
@@ -82,13 +78,5 @@ const styles = StyleSheet.create({
   },
   buttonBar: {
     width: '80%',
-  },
-  closeButton: {
-    alignSelf: 'flex-end',
-    position: 'absolute',
-    top: 0,
-    marginTop: 50,
-    right: 0,
-    marginRight: 10,
   },
 });
