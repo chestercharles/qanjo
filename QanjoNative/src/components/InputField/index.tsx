@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, TextInput, Text } from 'react-native';
-import { colors } from '../../theme';
+import { StyleSheet, View, TextInput, Text, ViewStyle } from 'react-native';
+import { colors, borders } from '../../theme';
 
 type InputFieldProps = {
   onChangeText: (text: string) => void;
@@ -8,6 +8,7 @@ type InputFieldProps = {
   hasError?: boolean;
   errorMessage?: string;
   value?: string;
+  style?: ViewStyle;
 };
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -15,20 +16,19 @@ const InputField: React.FC<InputFieldProps> = ({
   placeholder,
   hasError,
   value,
+  style,
 }) => {
   return (
-    <>
-      <View style={[styles.inputView, hasError && styles.hasError]}>
-        <TextInput
-          value={value}
-          style={styles.inputText}
-          placeholder={placeholder}
-          placeholderTextColor={colors.paragraph}
-          onChangeText={onChangeText}
-          clearButtonMode="always"
-        />
-      </View>
-    </>
+    <View style={[styles.inputView, hasError && styles.hasError, style]}>
+      <TextInput
+        value={value}
+        style={styles.inputText}
+        placeholder={placeholder}
+        placeholderTextColor={colors.paragraph}
+        onChangeText={onChangeText}
+        clearButtonMode="always"
+      />
+    </View>
   );
 };
 
@@ -36,15 +36,14 @@ export default InputField;
 
 const styles = StyleSheet.create({
   inputView: {
-    width: '80%',
-    backgroundColor: colors.background,
-    borderColor: colors.paragraph,
-    borderWidth: 2,
-    borderRadius: 10,
+    width: '100%',
     height: 50,
-    marginBottom: 20,
-    justifyContent: 'center',
     padding: 20,
+    justifyContent: 'center',
+    borderWidth: borders.width,
+    borderRadius: borders.radius,
+    borderColor: colors.paragraph,
+    backgroundColor: colors.background,
   },
   hasError: {
     borderColor: colors.red,

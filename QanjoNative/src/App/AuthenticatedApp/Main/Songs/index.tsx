@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { colors } from '../../../../theme';
+import { colors, space } from '../../../../theme';
 import SongList from './SongList';
 import Plus from '../../../../icons/Plus';
 import AddSongModal from './AddSongModal';
 import EditSongModal from './EditSongModal';
 import Header from '../../../../components/Header';
 import { Song } from '../../../../gql';
+import InputField from '../../../../components/InputField';
 
 const Songs: React.FC = () => {
   const [addSongModalVisible, setAddSongModalVisible] = useState(false);
@@ -21,6 +22,9 @@ const Songs: React.FC = () => {
           </TouchableOpacity>
         }
       />
+      <View style={styles.search}>
+        <InputField onChangeText={() => {}} placeholder={'Search...'} />
+      </View>
       <SongList onSongPress={(song) => setSongToEdit(song)} />
       <AddSongModal
         visible={addSongModalVisible}
@@ -46,5 +50,8 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  search: {
+    marginHorizontal: space.gutter,
   },
 });

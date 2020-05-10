@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
 import InputField from '../../../../../components/InputField';
 import Headline from '../../../../../components/Headline';
-import { colors } from '../../../../../theme';
+import { colors, space } from '../../../../../theme';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import {
   CurrentBandDocument,
@@ -49,12 +49,14 @@ const AddSong: React.FC<AddSong> = ({ onCompleted, onRequestClose, song }) => {
         placeholder="Title..."
         onChangeText={setTitle}
         hasError={dirty && !title}
+        style={styles.input}
       />
       <InputField
         value={key}
         placeholder="Key..."
         onChangeText={setKey}
         hasError={dirty && !key}
+        style={styles.input}
       />
       <ButtonBar
         onPrimaryPress={() => {
@@ -68,6 +70,7 @@ const AddSong: React.FC<AddSong> = ({ onCompleted, onRequestClose, song }) => {
         secondaryTitle={'Cancel'}
         primaryTitle="Save"
         primaryLoading={loading}
+        style={styles.buttonBar}
       />
     </View>
   );
@@ -82,9 +85,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  secondaryAction: {
-    color: colors.paragraph,
-    paddingTop: 20,
+  input: {
+    width: '80%',
+    marginHorizontal: space.gutter,
+    marginVertical: space.gutter / 2,
+  },
+  buttonBar: {
+    width: '80%',
   },
   closeButton: {
     alignSelf: 'flex-end',

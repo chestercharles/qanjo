@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
 import InputField from '../../../../../components/InputField';
 import Headline from '../../../../../components/Headline';
-import { colors } from '../../../../../theme';
+import { colors, space } from '../../../../../theme';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import {
   CurrentBandDocument,
@@ -13,6 +13,7 @@ import {
 import Button from '../../../../../components/Button';
 import Close from '../../../../../icons/Close';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import ButtonBar from '../../../../../components/ButtonBar';
 
 type AddSong = {
   onCompleted: () => void;
@@ -45,22 +46,27 @@ const AddSong: React.FC<AddSong> = ({ onCompleted, onRequestClose }) => {
         placeholder="Title..."
         onChangeText={setTitle}
         hasError={dirty && !title}
+        style={styles.input}
       />
       <InputField
         placeholder="Key..."
         onChangeText={setKey}
         hasError={dirty && !key}
+        style={styles.input}
       />
-      <Button
-        onPress={() => {
+      <ButtonBar
+        onPrimaryPress={() => {
           if (loading || !key || !title) {
             setDirty(true);
           } else {
             createSong();
           }
         }}
-        title="Submit"
-        loading={loading}
+        primaryTitle="Save"
+        primaryLoading={loading}
+        onSecondaryPress={onRequestClose}
+        secondaryTitle="Cancel"
+        style={styles.buttonBar}
       />
     </View>
   );
@@ -71,13 +77,18 @@ export default AddSong;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: colors.background,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  secondaryAction: {
-    color: colors.paragraph,
-    paddingTop: 20,
+  input: {
+    width: '80%',
+    marginHorizontal: space.gutter,
+    marginVertical: space.gutter / 2,
+  },
+  buttonBar: {
+    width: '80%',
   },
   closeButton: {
     alignSelf: 'flex-end',

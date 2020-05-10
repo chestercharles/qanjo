@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { colors } from '../../../../../theme';
+import { colors, font, borders, space } from '../../../../../theme';
 
 type SongSectionHeaderProps = {
   title: string;
@@ -22,10 +22,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     height: 30,
     backgroundColor: colors.secondary,
+    borderColor: colors.stroke,
+    borderWidth: borders.width,
+    borderRadius: borders.radius,
+    marginHorizontal: space.gutter,
+    marginVertical: space.gutter / 2,
   },
   text: {
     color: colors.headline,
-    fontWeight: '800',
-    paddingLeft: 10,
+    fontWeight: font.weight.bold,
+    paddingLeft: 5,
   },
 });

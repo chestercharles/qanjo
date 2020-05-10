@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Song } from '../../../../../gql';
+import { space } from '../../../../../theme';
 
 type SongEntryProps = {
   song: Song;
@@ -27,9 +28,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 50,
+    paddingHorizontal: space.gutter,
   },
   text: {
-    paddingHorizontal: 10,
     fontSize: 20,
   },
 });

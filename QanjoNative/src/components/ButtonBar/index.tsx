@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { colors } from '../../theme';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 import Button from '../Button';
 
 type ButtonBarProps = {
@@ -12,6 +11,7 @@ type ButtonBarProps = {
   secondaryLoading?: boolean;
   primaryDisabled?: boolean;
   secondaryDisabled?: boolean;
+  style?: ViewStyle;
 };
 
 const ButtonBar: React.FC<ButtonBarProps> = ({
@@ -23,27 +23,24 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
   secondaryLoading = false,
   primaryDisabled = false,
   secondaryDisabled = false,
+  style,
 }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.btn}>
-        <Button
-          buttonType="Secondary"
-          onPress={onSecondaryPress}
-          title={secondaryTitle}
-          disabled={secondaryDisabled}
-          loading={secondaryLoading}
-        />
-      </View>
-      <View style={styles.btn}>
-        <Button
-          buttonType="Primary"
-          onPress={onPrimaryPress}
-          title={primaryTitle}
-          disabled={primaryDisabled}
-          loading={primaryLoading}
-        />
-      </View>
+    <View style={[styles.container, style]}>
+      <Button
+        buttonType="Secondary"
+        onPress={onSecondaryPress}
+        title={secondaryTitle}
+        disabled={secondaryDisabled}
+        loading={secondaryLoading}
+      />
+      <Button
+        buttonType="Primary"
+        onPress={onPrimaryPress}
+        title={primaryTitle}
+        disabled={primaryDisabled}
+        loading={primaryLoading}
+      />
     </View>
   );
 };
@@ -54,8 +51,5 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  btn: {
-    paddingHorizontal: 10,
   },
 });
