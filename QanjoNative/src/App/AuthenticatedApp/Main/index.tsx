@@ -1,7 +1,6 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useQuery } from '@apollo/react-hooks';
 
@@ -14,6 +13,8 @@ import Calendar from '../../../icons/Calendar';
 import List from '../../../icons/List';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Gear from '../../../icons/Gear';
+import Home from './Home';
+import Setlists from './Setlists';
 
 const Stack = createStackNavigator();
 
@@ -68,21 +69,21 @@ const Tab = createBottomTabNavigator();
 const FeatureTabs: React.FC = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Gigs"
+      initialRouteName="Home"
       tabBarOptions={{
         activeTintColor: colors.highlight,
       }}
     >
       <Tab.Screen
-        name="Gigs"
-        component={Songs}
+        name="Home"
+        component={Home}
         options={{
           tabBarIcon: ({ focused, color }) => <Calendar color={color} />,
         }}
       />
       <Tab.Screen
         name="Setlists"
-        component={Songs}
+        component={Setlists}
         options={{
           tabBarIcon: ({ focused, color }) => <List color={color} />,
         }}

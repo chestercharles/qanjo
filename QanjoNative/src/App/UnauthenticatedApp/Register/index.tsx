@@ -9,7 +9,7 @@ import { CreateUserDocument, CreateUserMutation } from '../../../gql';
 import Button from '../../../components/Button';
 import InputField from '../../../components/InputField';
 import Headline from '../../../components/Headline';
-import { colors } from '../../../theme';
+import { colors, space } from '../../../theme';
 
 const Register: React.FC = () => {
   const navigation = useNavigation();
@@ -37,16 +37,19 @@ const Register: React.FC = () => {
         placeholder="Username..."
         onChangeText={setUsername}
         hasError={dirty && !username}
+        style={styles.input}
       />
       <InputField
         placeholder="Email..."
         onChangeText={setEmail}
         hasError={dirty && !email}
+        style={styles.input}
       />
       <InputField
         placeholder="Password..."
         onChangeText={setPassword}
         hasError={dirty && !password}
+        style={styles.input}
       />
       <Button
         onPress={() => {
@@ -74,6 +77,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  input: {
+    width: '90%',
+    marginVertical: space.gutter / 2,
   },
   secondaryAction: {
     color: colors.paragraph,

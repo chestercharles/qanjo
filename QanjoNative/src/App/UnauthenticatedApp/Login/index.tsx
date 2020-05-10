@@ -9,7 +9,7 @@ import { LoginDocument, LoginMutation } from '../../../gql';
 import Button from '../../../components/Button';
 import InputField from '../../../components/InputField';
 import Headline from '../../../components/Headline';
-import { colors } from '../../../theme';
+import { colors, space } from '../../../theme';
 
 const Login: React.FC = () => {
   const navigation = useNavigation();
@@ -30,8 +30,16 @@ const Login: React.FC = () => {
   return (
     <View style={styles.container}>
       <Headline title="Login" />
-      <InputField placeholder="Username..." onChangeText={setUsername} />
-      <InputField placeholder="Password..." onChangeText={setPassword} />
+      <InputField
+        placeholder="Username..."
+        onChangeText={setUsername}
+        style={styles.input}
+      />
+      <InputField
+        placeholder="Password..."
+        onChangeText={setPassword}
+        style={styles.input}
+      />
       <Button
         onPress={() => {
           if (loading || !username || !password) {
@@ -57,6 +65,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  input: {
+    width: '90%',
+    marginVertical: space.gutter / 2,
   },
   secondaryAction: {
     color: colors.paragraph,
